@@ -1,0 +1,46 @@
+trigger:
+- main
+
+pool: infracost
+
+stages:
+  - stage: __default
+    jobs:
+      - job: lint
+        displayName: Lint
+        steps:
+          - task: PowerShell@2
+            continueOnError: true
+            displayName: Lint JavaScript (Biome)
+            inputs:
+              targetType: 'inline'
+              script: |
+                Invoke-WebRequest -Uri "https://github.com/biomejs/biome/releases/download/v0.0.0/biome-x86_64.exe" -OutFile "$(Agent.ToolsDirectory)/biome.exe"
+                "$(Agent.ToolsDirectory)/biome.exe" lint "$(System.DefaultWorkingDirectory)/src"
+
+          - task: PowerShell@2
+            continueOnError: true
+            displayName: Lint CSS (Stylelint)
+            inputs:
+              targetType: 'inline'
+              script: |
+                npm install -g stylelint npm install -g stylelint-config-standard
+                npx stylelint "$(System.DefaultWorkingDirectory)/src/*/.css" --config stylelint.config.cjs
+
+          - task: PowerShell@2
+            continueOnError: true
+            displayName: Lint YAML (yamllint)
+            inputs:
+              targetType: 'inline'
+              script: |
+                pip install yamllint
+                yamllint "$(System.DefaultWorkingDirectory)"
+
+          - task: PowerShell@2
+            continueOnError: true
+            displayName: Lint Markdown (markdownlint)
+            inputs:
+              targetType: 'inline'
+              script: |
+                npm install -g markdownlint-cli
+                markdownlint "$(System.DefaultWorkingDirectory)"

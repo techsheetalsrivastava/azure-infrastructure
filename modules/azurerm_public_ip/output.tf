@@ -1,0 +1,13 @@
+﻿output "pip_ids" {
+  value = {
+    for k, v in azurerm_public_ip.pip : k => v.id
+  }
+  description = "Public IP resource IDs"
+}
+
+output "public_ip_addresses" {
+  value = {
+    for k, v in azurerm_public_ip.pip : k => v.ip_address
+  }
+  description = "Public IP addresses"
+}

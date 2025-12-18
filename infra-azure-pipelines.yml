@@ -1,0 +1,28 @@
+trigger:
+- main
+
+pool:
+  name: infracost   
+
+variables:
+- group: infracost-secrets
+
+steps:
+- checkout: self
+
+- powershell: |
+    infracost --version
+  displayName: Verify Infracost
+
+- powershell: |
+    infracost breakdown `
+      --path=. `
+      --format=json `
+      --out-file=infracost.json
+  env:
+    INFRACOST_API_KEY: $(INFRACOST_API_KEY)
+  displayName: Run Infracost Cost Breakdown
+  
+- publish: infracost.json
+  artifact: infracost-report
+
