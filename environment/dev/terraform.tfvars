@@ -1,6 +1,6 @@
 rgs = {
   rg1 = {
-    name     = "test_dev_rg"
+    name     = "sheetalrg"
     location = "centralindia"
   }
 }
@@ -8,7 +8,7 @@ rgs = {
 stgs = {
   "std1" = {
     name                     = "stddev20251218"
-    resource_group_name      = "test_dev_rg"
+    resource_group_name      = "sheetalrg"
     location                 = "centralindia"
     account_tier             = "Standard"
     account_replication_type = "GRS"
@@ -17,20 +17,20 @@ stgs = {
 
 sql_server = {
   "server1" = {
-    name                         = "sqlserveranmol123"
-    resource_group_name          = "test_dev_rg"
+    name                         = "sqlserverdevops123"
+    resource_group_name          = "sheetalrg"
     location                     = "centralindia"
     version                      = "12.0"
-    administrator_login          = "testlogin"
-    administrator_login_password = "Test@login123"
+    administrator_login          = "adminlogin"
+    administrator_login_password = "Admin@login123"
     minimum_tls_version          = "1.2"
   }
 }
 
 serverdata = {
   "server1" = {
-    name                = "sqlserveranmol123"
-    resource_group_name = "test_dev_rg"
+    name                = "sqlserverdevops123"
+    resource_group_name = "sheetalrg"
   }
 }
 
@@ -48,9 +48,9 @@ databases = {
 
 kvs = {
   kv1 = {
-    name                        = "testdevleyvault"
+    name                        = "devopskeyvault"
     location                    = "centralindia"
-    resource_group_name         = "test_dev_rg"
+    resource_group_name         = "sheetalrg"
     enabled_for_disk_encryption = true
     soft_delete_retention_days  = 7
     purge_protection_enabled    = false
@@ -62,14 +62,32 @@ pips = {
   "pip1" = {
     name                = "publicip1"
     location            = "centralindia"
-    resource_group_name = "test_dev_rg"
+    resource_group_name = "sheetalrg"
     allocation_method   = "Static"
   }
   "pip2" = {
     name                = "publicip2"
     location            = "centralindia"
-    resource_group_name = "test_dev_rg"
+    resource_group_name = "sheetalrg"
     allocation_method   = "Static"
   }
 }
+vms = {
+  "nic1" = {
+    nic_name            = "nic1"
+    location            = "centralindia"
+    resource_group_name = "sheetalrg"
+    vm_name             = "testdevopsvm"
+    size                = "Standard_F2"
+    admin_username      = "adminuser"
+
+    ip_configuration = {
+      ip1 = {
+        name                          = "internal"
+        private_ip_address_allocation = "Dynamic"
+      }
+    }
+  }
+}
+
 
