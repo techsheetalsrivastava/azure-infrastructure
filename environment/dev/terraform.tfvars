@@ -98,6 +98,19 @@ vms = {
     vm_name             = "testdevopsvm"
     size                = "Standard_F2"
     admin_username      = "adminuser"
+<<<<<<< HEAD
+=======
+
+    ip_configuration = {
+      ip1 = {
+        name                          = "internal"
+        private_ip_address_allocation = "Dynamic"
+      }
+    }
+  }
+}
+
+>>>>>>> 370af7018fc14149e0effa499ea863320cb9ad30
 
     ip_configuration = {
       ip1 = {
